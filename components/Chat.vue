@@ -526,8 +526,16 @@ const copyToClipboard = (message) => {
     }
 }
 
-const deleteMessage = (id) => {
-    messages.value = messages.value.filter((x) => !(x.id == id || x.parentMessageId == id))
+const deleteMessage = (message, index) => {
+    if (typeof message.id !== 'undefined') {
+        messages.value = messages.value.filter((x, i) => !(
+            (x.id == message.id) || 
+            (message.role === 'user' ? x.parentMessageId == message.id : message.parentMessageId == x.id)
+        ));
+    }
+    else {
+        messages.value = message.role === 'user' ? messages.value.filter((_, i) => !(i == index || i == index + 1)) : messages.value.filter((_, i) => !(i == index || i == index - 1));
+    }
 }
 </script>
 
@@ -575,9 +583,11 @@ const deleteMessage = (id) => {
                                 </template>
                             </span>
 
-                            <span class="message-functions">
-                                <a href="javascript:;" @click="deleteMessage(message.id)">Delete</a>
-                                <a href="javascript:;" @click="copyToClipboard(message.text)">Copy</a>
+                            <span class="message-functions flex-1">
+                                <a href="javascript:;" class="function-buttons transition duration-300 ease-in-out
+                        hover:bg-white/10" @click="deleteMessage(message, index)">Delete</a>
+                                <a href="javascript:;" class="function-buttons copy-status transition duration-300 ease-in-out
+                        hover:bg-white/10" @click="copyToClipboard(message.text, $event.target)">Copy</a>
                             </span>
                         </div>
                         <!-- message text -->
