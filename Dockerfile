@@ -10,8 +10,6 @@ COPY . .
 
 RUN npm run postinstall
 
-#RUN sed -i 's#${n.apiBaseUrl}#/api#g' /app/.output/public/_nuxt/entry.*.js
-
 RUN npm run build
 
 EXPOSE 3000
