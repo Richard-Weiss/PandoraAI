@@ -49,12 +49,26 @@ export const useConversationsStore = defineStore('conversationsStore', () => {
         currentConversationId.value = id;
     }
 
-    function deleteConversation(id) {
+    async function deleteConversation(id) {
         if (processingController.value) {
             return;
         }
+        // Hardcoded only for jailbreak Bing for now.
+        const prefix = 'bing:';
+        const fullId = prefix + id;
+
+        processingController.value = true;
+
+        const config = useRuntimeConfig();
+        await fetch(`${config.public.apiBaseUrl}/conversation/${fullId}`, {
+            method: 'DELETE',
+        });
+
         delete conversations.value[id];
+
         startNewConversation();
+
+        processingController.value = false;
     }
 
     function clearConversations() {
