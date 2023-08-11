@@ -190,7 +190,6 @@ const sendMessage = async (input, parentMessageId = null) => {
     const botMessageIndex = messages.value.length - 1;
 
     await nextTick();
-    scrollToBottom();
 
     let clientOptions;
     if (activePresetToUse.value?.options.clientOptions) {
@@ -354,7 +353,7 @@ const sendMessage = async (input, parentMessageId = null) => {
                     return;
                 }
                 messages.value[botMessageIndex].text += JSON.parse(eventMessage.data);
-                nextTick().then(() => scrollToBottom());
+                nextTick();
             },
         });
     } catch (err) {
@@ -493,9 +492,7 @@ if (!process.server) {
     watch(currentConversation, (newData, oldData) => {
         if (currentConversation.value) {
             conversationData.value = currentConversation.value.data;
-            nextTick(() => {
-                scrollToBottom();
-            });
+            nextTick();
         } else {
             conversationData.value = {};
             messages.value = [];
