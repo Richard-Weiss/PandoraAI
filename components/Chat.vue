@@ -492,7 +492,9 @@ if (!process.server) {
     watch(currentConversation, (newData, oldData) => {
         if (currentConversation.value) {
             conversationData.value = currentConversation.value.data;
-            nextTick();
+            nextTick(() => {
+                scrollToBottom();
+            });
         } else {
             conversationData.value = {};
             messages.value = [];
