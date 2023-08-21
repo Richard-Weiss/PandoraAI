@@ -208,11 +208,15 @@ const sendMessage = async (input, parentMessageId = null) => {
         stream = activePresetToUse.value?.options?.stream;
     }
 
+    const imageURL = undefined;
+    const imageBase64 = undefined;
     const data = {
         ...conversationData.value,
         message: input,
         stream,
         clientOptions,
+        ...imageBase64 && { imageBase64 },
+        ...imageURL && { imageURL },
     };
 
     if (typeof activePresetToUse.value?.options?.shouldGenerateTitle === 'undefined') {
@@ -242,7 +246,6 @@ const sendMessage = async (input, parentMessageId = null) => {
     };
 
     const handleMessageResult = (result) => {
-        console.debug(result);
         messages.value[userMessageIndex].id = result.parentMessageId;
         messages.value[botMessageIndex].id = result.messageId;
         messages.value[botMessageIndex].parentMessageId = result.parentMessageId;
@@ -275,7 +278,6 @@ const sendMessage = async (input, parentMessageId = null) => {
         }
         const adaptiveText = result.details.adaptiveCards?.[0]?.body?.[0]?.text?.trim();
         if (adaptiveText) {
-            console.debug('adaptiveText', adaptiveText);
             messages.value[botMessageIndex].text = adaptiveText;
         } else {
             messages.value[botMessageIndex].text = result.response;
