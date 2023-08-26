@@ -4,12 +4,12 @@ import { marked } from 'marked';
 import DOMPurify from 'isomorphic-dompurify';
 import hljs from 'highlight.js';
 import { storeToRefs } from 'pinia';
+import copy from 'copy-to-clipboard';
+import markedKatex from 'marked-katex-extension';
 import BingIcon from '~/components/Icons/BingIcon.vue';
 import GPTIcon from '~/components/Icons/GPTIcon.vue';
 import ClientDropdown from '~/components/Chat/ClientDropdown.vue';
 import ClientSettings from '~/components/Chat/ClientSettings.vue';
-import copy from 'copy-to-clipboard';
-import markedKatex from "marked-katex-extension";
 
 marked.setOptions({
     silent: true,
@@ -17,7 +17,7 @@ marked.setOptions({
     breaks: true,
     gfm: true,
 });
-marked.use(markedKatex({throwOnError: false}));
+marked.use(markedKatex({ throwOnError: false }));
 
 const renderer = {
     code(code, lang) {
@@ -435,6 +435,26 @@ function getMessagesForConversation(conversationMessages, parentMessageId, conve
     return conversationOrderedMessages;
 }
 
+const copyToClipboard = (messageToBeCopied, element) => {
+    if (!copy(messageToBeCopied)) {
+        console.debug('Failed to copy message', messageToBeCopied);
+    }
+    if (element) {
+        const copyStatus = element.querySelector('.copy-status') || element;
+        if (copyStatus) {
+            // set text to "Copied"
+            copyStatus.innerText = 'Copied!';
+            setTimeout(() => {
+                if (!copyStatus) {
+                    return;
+                }
+                // set text back to "Copy"
+                copyStatus.innerText = 'Copy';
+            }, 2000);
+        }
+    }
+};
+
 if (!process.server) {
     const copyButtonListener = (e) => {
         // check parent elements for `data-is-copy-button` attribute
@@ -448,7 +468,6 @@ if (!process.server) {
                 }
                 // copy text to clipboard
                 copyToClipboard(codeBlock.innerText, el);
-                
             }
             el = el.parentElement;
         }
@@ -507,40 +526,6 @@ if (!process.server) {
     });
 }
 
-const copyToClipboard = (message, element) => {
-    console.debug("copy message", message)
-    console.debug("copy element", element)
-    if (!copy(message)) {
-        prompt("Failed to copy. Please copy manually: ", message)
-    }
-    if (element) {
-        const copyStatus = element.querySelector('.copy-status') || element;
-        if (copyStatus) {
-            // set text to "Copied"
-            copyStatus.innerText = 'Copied!';
-            setTimeout(() => {
-                if (!copyStatus) {
-                    return;
-                }
-                // set text back to "Copy"
-                copyStatus.innerText = 'Copy';
-            }, 2000);
-        }
-        return;
-    }
-}
-
-const deleteMessage = (message, index) => {
-    if (typeof message.id !== 'undefined') {
-        messages.value = messages.value.filter((x, i) => !(
-            (x.id == message.id) || 
-            (message.role === 'user' ? x.parentMessageId == message.id : message.parentMessageId == x.id)
-        ));
-    }
-    else {
-        messages.value = message.role === 'user' ? messages.value.filter((_, i) => !(i == index || i == index + 1)) : messages.value.filter((_, i) => !(i == index || i == index - 1));
-    }
-}
 </script>
 
 <template>
@@ -590,10 +575,6 @@ const deleteMessage = (message, index) => {
                                 </span>
 
                                 <span class="message-functions flex-1">
-                                    <a href="javascript:;" class="function-buttons transition duration-300 ease-in-out
-                                        hover:bg-white/10" @click="deleteMessage(message, index)">
-                                        <Icon name="bx:bx-trash"/> Delete
-                                    </a>
                                     <a href="javascript:;" class="function-buttons transition duration-300 ease-in-out
                                         hover:bg-white/10" @click="copyToClipboard(message.text, $event.target)">
                                         <Icon name="bx:bx-copy"/>&nbsp;<span class="copy-status">Copy</span>
