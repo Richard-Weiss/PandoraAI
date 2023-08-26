@@ -6,6 +6,7 @@ import hljs from 'highlight.js';
 import { storeToRefs } from 'pinia';
 import copy from 'copy-to-clipboard';
 import markedKatex from 'marked-katex-extension';
+import { Buffer } from 'buffer';
 import BingIcon from '~/components/Icons/BingIcon.vue';
 import GPTIcon from '~/components/Icons/GPTIcon.vue';
 import ClientDropdown from '~/components/Chat/ClientDropdown.vue';
@@ -282,7 +283,12 @@ const sendMessage = async (input, parentMessageId = null) => {
         }
         const adaptiveText = result.details.adaptiveCards?.[0]?.body?.[0]?.text?.trim();
         if (adaptiveText) {
-            messages.value[botMessageIndex].text = adaptiveText;
+            const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+            if (base64regex.test(adaptiveText)) {
+                messages.value[botMessageIndex].text = Buffer.from(adaptiveText, 'base64').toString();
+            } else {
+                messages.value[botMessageIndex].text = adaptiveText;
+            }
         } else {
             messages.value[botMessageIndex].text = result.response;
         }
