@@ -286,6 +286,7 @@ const sendMessage = async (input, parentMessageId = null) => {
             const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
             if (base64regex.test(adaptiveText)) {
                 messages.value[botMessageIndex].text = Buffer.from(adaptiveText, 'base64').toString();
+                messages.value[botMessageIndex].text += '\n🔓';
             } else {
                 messages.value[botMessageIndex].text = adaptiveText;
             }
