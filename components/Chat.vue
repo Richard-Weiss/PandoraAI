@@ -220,6 +220,7 @@ const sendMessage = async (input, parentMessageId = null) => {
         message: input,
         stream,
         clientOptions,
+        password: config.public.password,
         ...imageBase64 && { imageBase64 },
         ...imageURL && { imageURL },
     };
