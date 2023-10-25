@@ -49,13 +49,11 @@ export const useConversationsStore = defineStore('conversationsStore', () => {
         currentConversationId.value = id;
     }
 
-    async function deleteConversation(id) {
+    async function deleteConversation(clientToUse, id) {
         if (processingController.value) {
             return;
         }
-        // Hardcoded only for jailbreak Bing for now.
-        const prefix = 'bing:';
-        const fullId = prefix + id;
+        const fullId = `${clientToUse}:${id}`;
 
         processingController.value = true;
 

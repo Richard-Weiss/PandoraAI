@@ -3,6 +3,7 @@ import { storeToRefs } from 'pinia';
 import { useAppStore } from '~/stores/app';
 import BingIcon from '~/components/Icons/BingIcon.vue';
 import GPTIcon from '~/components/Icons/GPTIcon.vue';
+import LocalLLMIcon from '~/components/Icons/LocalLLMIcon.vue';
 
 const appStore = useAppStore();
 const {
@@ -51,8 +52,8 @@ const setCurrentConversationIdHandler = (conversationId) => {
     }
 };
 
-const deleteConversationHandler = (conversationId) => {
-    deleteConversation(conversationId);
+const deleteConversationHandler = (clientToUse, conversationId) => {
+    deleteConversation(clientToUse, conversationId);
 };
 
 const clearConversationsHandler = () => {
@@ -176,6 +177,10 @@ const updateConversationTitleHandler = (event) => {
                                     v-else-if="(conversation.activePreset?.client || conversation.activePresetName) === 'bing'"
                                     class="h-3 rounded-lg opacity-80"
                                 />
+                                <LocalLLMIcon
+                                    v-else-if="(conversation.activePreset?.client || conversation.activePresetName) === 'localLLM'"
+                                    class="h-3 rounded-lg opacity-80"
+                                />
                             </span>
                             <span
                                 v-if="conversationTitleToEditId === conversation.id"
@@ -230,7 +235,7 @@ const updateConversationTitleHandler = (event) => {
                         </span>
                     </div>
                     <button
-                        @click="deleteConversationHandler(conversation.id)"
+                        @click="deleteConversationHandler(conversation.activePreset?.client || conversation.activePresetName, conversation.id)"
                         class="flex items-center justify-center px-3 text-white/30 hover:text-white/60 transition duration-300 ease-in-out"
                         :disabled="!!processingController"
                         :class="{ 'cursor-not-allowed': !!processingController }"

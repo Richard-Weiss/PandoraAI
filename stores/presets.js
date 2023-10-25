@@ -43,6 +43,9 @@ export const usePresetsStore = defineStore('presetsStore', () => {
             case 'bing':
                 nameToUse = 'Bing';
                 break;
+            case 'localLLM':
+                nameToUse = 'Local LLM';
+                break;
             default:
                 nameToUse = name;
                 break;

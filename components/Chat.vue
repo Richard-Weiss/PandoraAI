@@ -9,6 +9,7 @@ import markedKatex from 'marked-katex-extension';
 import { Buffer } from 'buffer';
 import BingIcon from '~/components/Icons/BingIcon.vue';
 import GPTIcon from '~/components/Icons/GPTIcon.vue';
+import LocalLLMIcon from '~/components/Icons/LocalLLMIcon.vue';
 import ClientDropdown from '~/components/Chat/ClientDropdown.vue';
 import ClientSettings from '~/components/Chat/ClientSettings.vue';
 
@@ -226,7 +227,7 @@ const sendMessage = async (input, parentMessageId = null) => {
     };
 
     if (typeof activePresetToUse.value?.options?.shouldGenerateTitle === 'undefined') {
-        data.shouldGenerateTitle = true;
+        data.shouldGenerateTitle = false;
     } else {
         data.shouldGenerateTitle = activePresetToUse.value?.options?.shouldGenerateTitle;
     }
@@ -662,6 +663,13 @@ if (!process.server) {
                         />
                         <BingIcon
                             v-else-if="activePresetNameToUse === 'bing' || activePresetToUse?.client === 'bing'"
+                            class="w-10 h-10 p-2 block transition duration-300 ease-in-out rounded-lg hover:bg-black/30 cursor-pointer hover:shadow"
+                            :class="{
+                                'bg-black/30 shadow': isClientDropdownOpen,
+                            }"
+                        />
+                        <LocalLLMIcon
+                            v-else-if="activePresetNameToUse === 'localLLM' || activePresetToUse?.client === 'localLLM'"
                             class="w-10 h-10 p-2 block transition duration-300 ease-in-out rounded-lg hover:bg-black/30 cursor-pointer hover:shadow"
                             :class="{
                                 'bg-black/30 shadow': isClientDropdownOpen,

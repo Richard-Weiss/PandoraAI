@@ -2,6 +2,8 @@
 import { storeToRefs } from 'pinia';
 import GPTIcon from '~/components/Icons/GPTIcon.vue';
 import BingIcon from '~/components/Icons/BingIcon.vue';
+import LocalLLMIcon from '~/components/Icons/LocalLLMIcon.vue';
+
 import { usePresetsStore } from '~/stores/presets';
 
 const props = defineProps({
@@ -25,7 +27,7 @@ const props = defineProps({
 
 const presetsStore = usePresetsStore();
 const { presets } = storeToRefs(presetsStore);
-const customPresets = computed(() => presets.value.filter(preset => !['OpenAI API', 'ChatGPT', 'Bing'].includes(preset.name)));
+const customPresets = computed(() => presets.value.filter(preset => !['OpenAI API', 'ChatGPT', 'Bing', 'Local LLM'].includes(preset.name)));
 
 const setClientToUseHandler = (clientName) => {
     if (props.canChangePreset) {
@@ -132,6 +134,26 @@ onMounted(() => {
                     <Icon class="w-5 h-5 text-white/70" name="bx:bxs-cog" />
                 </button>
             </div>
+            <div class="w-full flex flex-row">
+                <button
+                    class="w-full px-3 py-1 flex flex-row items-center transition ease-in-out text-sm border-t border-white/5"
+                    :class="{
+                        'font-bold active': presetName === 'localLLM',
+                        'hover:bg-white/20': canChangePreset,
+                        'cursor-not-allowed': !canChangePreset,
+                    }"
+                    @click="setClientToUseHandler('localLLM')"
+                >
+                    <LocalLLMIcon class="h-9 py-2 pr-2 rounded-lg" />
+                    Local LLM
+                </button>
+                <button
+                    class="hover:bg-white/20 px-3 py-1 flex items-center transition ease-in-out border-t border-white/5"
+                    @click="setIsClientSettingsModalOpen(true, 'localLLM')"
+                >
+                    <Icon class="w-5 h-5 text-white/70" name="bx:bxs-cog" />
+                </button>
+            </div>
             <div
                 v-for="preset in customPresets"
                 :key="preset.name"
@@ -156,6 +178,10 @@ onMounted(() => {
                     />
                     <BingIcon
                         v-else-if="preset.client === 'bing'"
+                        class="h-9 py-2 pr-2 rounded-lg"
+                    />
+                    <LocalLLMIcon
+                        v-else-if="preset.client === 'localLLM'"
                         class="h-9 py-2 pr-2 rounded-lg"
                     />
                     {{ preset.name }}

@@ -11,6 +11,7 @@ import set from 'lodash/set';
 import unset from 'lodash/unset';
 import BingIcon from '~/components/Icons/BingIcon.vue';
 import GPTIcon from '~/components/Icons/GPTIcon.vue';
+import LocalLLMIcon from '~/components/Icons/LocalLLMIcon.vue';
 
 const props = defineProps({
     isOpen: {
@@ -191,6 +192,70 @@ const availableOptions = {
             },
         },
     },
+    localLLM: {
+        stream: {
+            type: 'checkbox',
+            label: 'Stream Responses',
+            default: true,
+        },
+        clientOptions: {
+            type: 'nested',
+            label: 'Client Options',
+            properties: {
+                host: {
+                    type: 'text',
+                    label: 'Host',
+                },
+                port: {
+                    type: 'text',
+                    label: 'Port',
+                },
+                systemMessage: {
+                    type: 'textarea',
+                    label: 'Instructions (System Message)',
+                },
+                max_tokens: {
+                    type: 'range',
+                    label: 'Max Tokens',
+                    min: 1,
+                    max: 4096,
+                    step: 1,
+                },
+                start_token: {
+                    type: 'text',
+                    label: 'Start token',
+                },
+                end_token: {
+                    type: 'text',
+                    label: 'End token',
+                },
+                modelOptions: {
+                    type: 'nested',
+                    label: 'Model Options',
+                    properties: {
+                        temperature: {
+                            type: 'range',
+                            label: 'Temperature',
+                            min: 0,
+                            max: 1,
+                            step: 0.01,
+                        },
+                        presence_penalty: {
+                            type: 'range',
+                            label: 'Presence Penalty',
+                            min: -1,
+                            max: 50,
+                            step: 0.01,
+                        },
+                        stop_token: {
+                            type: 'text',
+                            label: 'Stop token',
+                        },
+                    },
+                },
+            },
+        },
+    },
 };
 
 const presetStore = usePresetsStore();
@@ -216,6 +281,8 @@ const defaultSaveAsName = computed(() => {
             return 'ChatGPT';
         case 'bing':
             return 'Bing';
+        case 'localLLM':
+            return 'Local LLM';
         default:
             throw new Error('Invalid client');
     }
@@ -408,6 +475,10 @@ watch(() => props.client, (client) => {
                         />
                         <BingIcon
                             v-else-if="client === 'bing'"
+                            class="h-10 py-2 mr-2 block shadow transition duration-300 ease-in-out rounded-lg"
+                        />
+                        <LocalLLMIcon
+                            v-else-if="client === 'localLLM'"
                             class="h-10 py-2 mr-2 block shadow transition duration-300 ease-in-out rounded-lg"
                         />
                         Settings
