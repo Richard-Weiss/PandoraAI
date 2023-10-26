@@ -214,20 +214,20 @@ const availableOptions = {
                     type: 'textarea',
                     label: 'Instructions (System Message)',
                 },
-                max_tokens: {
+                context_tokens: {
                     type: 'range',
-                    label: 'Max Tokens',
+                    label: 'Context Tokens',
                     min: 1,
                     max: 4096,
                     step: 1,
                 },
                 start_token: {
                     type: 'text',
-                    label: 'Start token',
+                    label: 'Start Token',
                 },
                 end_token: {
                     type: 'text',
-                    label: 'End token',
+                    label: 'End Token',
                 },
                 modelOptions: {
                     type: 'nested',
@@ -247,9 +247,16 @@ const availableOptions = {
                             max: 50,
                             step: 0.01,
                         },
+                        max_tokens: {
+                            type: 'range',
+                            label: 'Maximum Reply Tokens',
+                            min: 1,
+                            max: 2048,
+                            step: 1,
+                        },
                         stop_token: {
                             type: 'text',
-                            label: 'Stop token',
+                            label: 'Stop Token',
                         },
                     },
                 },
