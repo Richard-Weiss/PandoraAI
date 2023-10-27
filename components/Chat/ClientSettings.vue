@@ -240,11 +240,25 @@ const availableOptions = {
                             max: 1,
                             step: 0.01,
                         },
+                        top_p: {
+                            type: 'range',
+                            label: 'Top P',
+                            min: 0,
+                            max: 1,
+                            step: 0.01,
+                        },
                         presence_penalty: {
                             type: 'range',
                             label: 'Presence Penalty',
                             min: -1,
                             max: 50,
+                            step: 0.01,
+                        },
+                        frequency_penalty: {
+                            type: 'range',
+                            label: 'Frequency Penalty',
+                            min: 0,
+                            max: 1,
                             step: 0.01,
                         },
                         max_tokens: {
