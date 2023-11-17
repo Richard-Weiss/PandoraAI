@@ -237,7 +237,7 @@ const availableOptions = {
                             type: 'range',
                             label: 'Temperature',
                             min: 0,
-                            max: 1,
+                            max: 2,
                             step: 0.01,
                         },
                         top_p: {
@@ -247,11 +247,18 @@ const availableOptions = {
                             max: 1,
                             step: 0.01,
                         },
+                        repeat_penalty: {
+                            type: 'range',
+                            label: 'Repeat Penalty',
+                            min: 0,
+                            max: 2,
+                            step: 0.01,
+                        },
                         presence_penalty: {
                             type: 'range',
                             label: 'Presence Penalty',
-                            min: -1,
-                            max: 50,
+                            min: 0,
+                            max: 2,
                             step: 0.01,
                         },
                         frequency_penalty: {
