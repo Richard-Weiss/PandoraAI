@@ -224,6 +224,7 @@ const sendMessage = async (input, parentMessageId = null) => {
         password: config.public.password,
         ...imageBase64 && { imageBase64 },
         ...imageURL && { imageURL },
+        plugins: activePresetToUse.value?.options?.plugins,
     };
 
     if (typeof activePresetToUse.value?.options?.shouldGenerateTitle === 'undefined') {

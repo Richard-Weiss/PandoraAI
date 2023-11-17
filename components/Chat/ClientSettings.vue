@@ -191,6 +191,32 @@ const availableOptions = {
                 },
             },
         },
+        plugins: {
+            type: 'nested',
+            label: 'Plugins',
+            properties: {
+                instacart: {
+                    type: 'checkbox',
+                    label: 'Instacart',
+                },
+                kayak: {
+                    type: 'checkbox',
+                    label: 'Kayak',
+                },
+                klarna: {
+                    type: 'checkbox',
+                    label: 'Klarna',
+                },
+                openTable: {
+                    type: 'checkbox',
+                    label: 'OpenTable',
+                },
+                shop: {
+                    type: 'checkbox',
+                    label: 'Shop',
+                },
+            },
+        },
     },
     localLLM: {
         stream: {
