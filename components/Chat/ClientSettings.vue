@@ -159,6 +159,10 @@ const availableOptions = {
             type: 'checkbox',
             label: 'Jailbreak Mode',
         },
+        systemMessage: {
+            type: 'textarea',
+            label: 'Instructions (System Message)',
+        },
         toneStyle: {
             type: 'select',
             label: 'Tone Style',

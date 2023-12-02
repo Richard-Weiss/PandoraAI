@@ -225,6 +225,7 @@ const sendMessage = async (input, parentMessageId = null) => {
         ...imageBase64 && { imageBase64 },
         ...imageURL && { imageURL },
         plugins: activePresetToUse.value?.options?.plugins,
+        systemMessage: activePresetToUse.value?.options?.systemMessage,
     };
 
     if (typeof activePresetToUse.value?.options?.shouldGenerateTitle === 'undefined') {
