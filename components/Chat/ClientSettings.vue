@@ -195,6 +195,11 @@ const availableOptions = {
             type: 'nested',
             label: 'Plugins',
             properties: {
+                search: {
+                    type: 'checkbox',
+                    label: 'Search',
+                    default: true,
+                },
                 instacart: {
                     type: 'checkbox',
                     label: 'Instacart',
@@ -541,11 +546,8 @@ watch(() => props.client, (client) => {
                     <DialogDescription class="mt-3">
                         <!-- Use generateForm function -->
                         <div class="flex flex-col gap-2">
-                            <template
-                                v-for="(option, optionName) in availableOptions[client]"
-                                :key="optionName"
-                            >
-                                <component :is="generateForm([option], optionName)[0]" />
+                            <template v-for="(option, optionName) in availableOptions[client]" :key="optionName">
+                                <component :is="generateForm([option], optionName)[0]" :value="option.default"/>
                             </template>
                         </div>
 
