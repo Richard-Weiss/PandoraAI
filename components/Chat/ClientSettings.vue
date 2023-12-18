@@ -181,6 +181,20 @@ const availableOptions = {
                 },
             ],
         },
+        modelVersion: {
+            type: 'select',
+            label: 'Model',
+            options: [
+                {
+                    label: 'Default',
+                    value: 'default',
+                },
+                {
+                    label: 'GPT-4 Turbo',
+                    value: 'gpt-4 turbo',
+                },
+            ],
+        },
         clientOptions: {
             type: 'nested',
             label: 'Client Options',

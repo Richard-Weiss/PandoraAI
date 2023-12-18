@@ -221,6 +221,7 @@ const sendMessage = async (input, parentMessageId = null) => {
         message: input,
         stream,
         clientOptions,
+        modelVersion: activePresetToUse.value?.options?.modelVersion,
         password: config.public.password,
         ...imageBase64 && { imageBase64 },
         ...imageURL && { imageURL },
