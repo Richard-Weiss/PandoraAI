@@ -195,6 +195,11 @@ const availableOptions = {
                 },
             ],
         },
+        showSuggestions: {
+            type: 'checkbox',
+            label: 'Show Suggestions',
+            default: false,
+        },
         clientOptions: {
             type: 'nested',
             label: 'Client Options',
