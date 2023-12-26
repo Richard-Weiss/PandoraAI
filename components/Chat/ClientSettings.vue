@@ -198,7 +198,10 @@ const availableOptions = {
         showSuggestions: {
             type: 'checkbox',
             label: 'Show Suggestions',
-            default: false,
+        },
+        useBase64: {
+            type: 'checkbox',
+            label: 'Use Base64',
         },
         clientOptions: {
             type: 'nested',

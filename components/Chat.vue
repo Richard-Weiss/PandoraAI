@@ -222,6 +222,8 @@ const sendMessage = async (input, parentMessageId = null) => {
         stream,
         clientOptions,
         modelVersion: activePresetToUse.value?.options?.modelVersion,
+        showSuggestions: activePresetToUse.value?.options?.showSuggestions || false,
+        useBase64: activePresetToUse.value?.options?.useBase64 || false,
         password: config.public.password,
         ...imageBase64 && { imageBase64 },
         ...imageURL && { imageURL },
@@ -289,7 +291,7 @@ const sendMessage = async (input, parentMessageId = null) => {
         const adaptiveText = result.details.adaptiveCards?.[0]?.body?.[0]?.text?.trim();
         if (adaptiveText) {
             const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
-            if (base64regex.test(adaptiveText)) {
+            if (base64regex.test(adaptiveText) && activePresetToUse.value?.options?.useBase64 === true) {
                 messages.value[botMessageIndex].text = Buffer.from(adaptiveText, 'base64').toString();
                 messages.value[botMessageIndex].text += '\n🔓';
             } else {
