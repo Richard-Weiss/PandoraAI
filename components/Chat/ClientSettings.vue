@@ -203,6 +203,10 @@ const availableOptions = {
             type: 'checkbox',
             label: 'Use Base64',
         },
+        useUserSuffixMessage: {
+            type: 'checkbox',
+            label: 'Use User Suffix Message',
+        },
         clientOptions: {
             type: 'nested',
             label: 'Client Options',
