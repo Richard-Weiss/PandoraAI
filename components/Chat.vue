@@ -228,6 +228,7 @@ const sendMessage = async (input, parentMessageId = null) => {
         ...imageBase64 && { imageBase64 },
         ...imageURL && { imageURL },
         plugins: activePresetToUse.value?.options?.plugins,
+        persona: activePresetToUse.value?.options?.persona,
         systemMessage: activePresetToUse.value?.options?.systemMessage,
     };
 

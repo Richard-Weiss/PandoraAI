@@ -195,6 +195,28 @@ const availableOptions = {
                 },
             ],
         },
+        persona: {
+            type: 'select',
+            label: 'Persona',
+            options: [
+                {
+                    label: 'Designer',
+                    value: 'designer',
+                },
+                {
+                    label: 'Vacation Planner',
+                    value: 'vacation_planner',
+                },
+                {
+                    label: 'Cooking Assistant',
+                    value: 'cooking_assistant',
+                },
+                {
+                    label: 'Fitness Trainer',
+                    value: 'fitness_trainer',
+                },
+            ],
+        },
         showSuggestions: {
             type: 'checkbox',
             label: 'Show Suggestions',
