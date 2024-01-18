@@ -215,6 +215,10 @@ const availableOptions = {
                     label: 'Fitness Trainer',
                     value: 'fitness_trainer',
                 },
+                {
+                    label: 'Copilot',
+                    value: 'copilot',
+                },
             ],
         },
         showSuggestions: {
