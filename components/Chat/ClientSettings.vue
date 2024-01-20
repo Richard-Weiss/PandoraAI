@@ -186,10 +186,6 @@ const availableOptions = {
             label: 'Model',
             options: [
                 {
-                    label: 'Default',
-                    value: 'default',
-                },
-                {
                     label: 'GPT-4 Turbo',
                     value: 'gpt-4 turbo',
                 },
@@ -199,6 +195,10 @@ const availableOptions = {
             type: 'select',
             label: 'Persona',
             options: [
+                {
+                    label: 'Copilot',
+                    value: 'copilot',
+                },
                 {
                     label: 'Designer',
                     value: 'designer',
@@ -214,10 +214,6 @@ const availableOptions = {
                 {
                     label: 'Fitness Trainer',
                     value: 'fitness_trainer',
-                },
-                {
-                    label: 'Copilot',
-                    value: 'copilot',
                 },
             ],
         },
@@ -254,7 +250,10 @@ const availableOptions = {
                 search: {
                     type: 'checkbox',
                     label: 'Search',
-                    default: true,
+                },
+                codeInterpreter: {
+                    type: 'checkbox',
+                    label: 'Code Interpreter',
                 },
                 instacart: {
                     type: 'checkbox',
@@ -602,8 +601,11 @@ watch(() => props.client, (client) => {
                     <DialogDescription class="mt-3">
                         <!-- Use generateForm function -->
                         <div class="flex flex-col gap-2">
-                            <template v-for="(option, optionName) in availableOptions[client]" :key="optionName">
-                                <component :is="generateForm([option], optionName)[0]" :value="option.default"/>
+                            <template
+                                v-for="(option, optionName) in availableOptions[client]"
+                                :key="optionName"
+                            >
+                                <component :is="generateForm([option], optionName)[0]" />
                             </template>
                         </div>
 
