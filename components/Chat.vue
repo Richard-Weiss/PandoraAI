@@ -220,16 +220,17 @@ const sendMessage = async (input, parentMessageId = null) => {
         ...conversationData.value,
         message: input,
         stream,
-        clientOptions,
+        systemMessage: activePresetToUse.value?.options?.systemMessage,
         modelVersion: activePresetToUse.value?.options?.modelVersion,
+        persona: activePresetToUse.value?.options?.persona,
         showSuggestions: activePresetToUse.value?.options?.showSuggestions || false,
         useBase64: activePresetToUse.value?.options?.useBase64 || false,
+        useUserSuffixMessage: activePresetToUse.value?.options?.useUserSuffixMessage,
+        clientOptions,
+        plugins: activePresetToUse.value?.options?.plugins,
         password: config.public.password,
         ...imageBase64 && { imageBase64 },
         ...imageURL && { imageURL },
-        plugins: activePresetToUse.value?.options?.plugins,
-        persona: activePresetToUse.value?.options?.persona,
-        systemMessage: activePresetToUse.value?.options?.systemMessage,
     };
 
     if (typeof activePresetToUse.value?.options?.shouldGenerateTitle === 'undefined') {
