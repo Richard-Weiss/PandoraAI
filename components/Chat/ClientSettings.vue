@@ -172,22 +172,16 @@ const availableOptions = {
                     value: 'creative',
                 },
                 {
+                    label: 'Turbo',
+                    value: 'turbo',
+                },
+                {
                     label: 'Balanced',
                     value: 'balanced',
                 },
                 {
                     label: 'Precise',
                     value: 'precise',
-                },
-            ],
-        },
-        modelVersion: {
-            type: 'select',
-            label: 'Model',
-            options: [
-                {
-                    label: 'GPT-4 Turbo',
-                    value: 'gpt-4 turbo',
                 },
             ],
         },
@@ -205,15 +199,15 @@ const availableOptions = {
                 },
                 {
                     label: 'Vacation Planner',
-                    value: 'vacation_planner',
+                    value: 'travel',
                 },
                 {
                     label: 'Cooking Assistant',
-                    value: 'cooking_assistant',
+                    value: 'cooking',
                 },
                 {
                     label: 'Fitness Trainer',
-                    value: 'fitness_trainer',
+                    value: 'fitness',
                 },
             ],
         },
