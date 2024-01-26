@@ -604,27 +604,6 @@ if (!process.server) {
                             />
                         </div>
                     </template>
-                    <template v-if="message !== ''">
-                        <div class="p-3 rounded-sm">
-                            <!-- role name -->
-                            <div
-                                class="flex flex-column text-xs text-white/50 mb-1"
-                            >
-                                <span class="message-role-name flex-1">
-                                    <Icon name="bx:user-voice"/>
-                                    Typing...
-                                </span>
-
-                                <span class="message-functions flex-1">
-                                </span>
-                            </div>
-                            <!-- message text -->
-                            <div
-                                class="prose prose-sm prose-chatgpt break-words max-w-6xl"
-                                v-html="parseMarkdown(message)"
-                            />
-                        </div>
-                    </template>
                 </div>
             </TransitionGroup>
         </div>
