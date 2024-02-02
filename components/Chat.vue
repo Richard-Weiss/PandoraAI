@@ -228,6 +228,7 @@ const sendMessage = async (input, parentMessageId = null) => {
         useUserSuffixMessage: activePresetToUse.value?.options?.useUserSuffixMessage,
         clientOptions,
         plugins: activePresetToUse.value?.options?.plugins,
+        accountType: activePresetToUse.value?.options?.accountType,
         password: config.public.password,
         ...imageBase64 && { imageBase64 },
         ...imageURL && { imageURL },

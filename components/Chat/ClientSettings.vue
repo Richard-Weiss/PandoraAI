@@ -211,6 +211,20 @@ const availableOptions = {
                 },
             ],
         },
+        accountType: {
+            type: 'select',
+            label: 'Account Type',
+            options: [
+                {
+                    label: 'Free Copilot',
+                    value: 'free',
+                },
+                {
+                    label: 'Copilot Pro',
+                    value: 'pro',
+                },
+            ],
+        },
         showSuggestions: {
             type: 'checkbox',
             label: 'Show Suggestions',
