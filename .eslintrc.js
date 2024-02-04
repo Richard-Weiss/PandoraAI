@@ -45,5 +45,6 @@ module.exports = {
         'no-restricted-syntax': 'off',
         'no-undef': 'off',
         'import/prefer-default-export': 'off',
+        'comma-dangle': 'off',
     },
 };

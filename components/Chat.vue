@@ -291,15 +291,10 @@ const sendMessage = async (input, parentMessageId = null) => {
                 title: result.title,
             };
         }
-        const adaptiveText = result.details.adaptiveCards?.[0]?.body?.[0]?.text?.trim();
-        if (adaptiveText) {
-            const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
-            if (base64regex.test(adaptiveText) && activePresetToUse.value?.options?.useBase64 === true) {
-                messages.value[botMessageIndex].text = Buffer.from(adaptiveText, 'base64').toString();
-                messages.value[botMessageIndex].text += '\n🔓';
-            } else {
-                messages.value[botMessageIndex].text = adaptiveText;
-            }
+        const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+        if (base64regex.test(result.response) && activePresetToUse.value?.options?.useBase64 === true) {
+            messages.value[botMessageIndex].text = Buffer.from(result.response, 'base64').toString();
+            messages.value[botMessageIndex].text += '\n🔓';
         } else {
             messages.value[botMessageIndex].text = result.response;
         }
