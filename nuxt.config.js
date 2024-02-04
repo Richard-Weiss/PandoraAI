@@ -1,49 +1,56 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    build: {
+        extend(config, ctx) {
+            if (ctx.isDev && ctx.isClient) {
+                config.devtool = 'eval-source-map';
+            }
+        }
+    },
     ssr: false,
     runtimeConfig: {
         public: {
             apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL,
-            password: process.env.PASSWORD,
-        },
+            password: process.env.PASSWORD
+        }
     },
     imports: {
-        dirs: ['stores'],
+        dirs: ['stores']
     },
     modules: [
         '@nuxtjs/tailwindcss',
         '@kevinmarrec/nuxt-pwa',
         'nuxt-icon',
         '@pinia/nuxt',
-        '@vueuse/nuxt',
+        '@vueuse/nuxt'
     ],
     css: [
         {
             src: '~/node_modules/highlight.js/styles/base16/dracula.css',
-            lang: 'css',
-        },
+            lang: 'css'
+        }
     ],
     pinia: {
-        autoImports: ['defineStore', 'acceptHMRUpdate'],
+        autoImports: ['defineStore', 'acceptHMRUpdate']
     },
     pwa: {
         icon: {
             source: './public/icon.png',
-            maskablePadding: 0,
+            maskablePadding: 0
         },
         meta: {
             name: 'PandoraAI',
             description: 'Multiple AI Web Chat Client',
             theme_color: '#7733ff',
             mobileAppIOS: true,
-            nativeUI: true,
+            nativeUI: true
         },
         manifest: {
             name: 'PandoraAI',
             description: 'Multiple AI Web Chat Client',
             background_color: '#7733ff',
             lang: 'en',
-            useWebmanifestExtension: false,
-        },
-    },
+            useWebmanifestExtension: false
+        }
+    }
 });
