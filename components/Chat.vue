@@ -291,12 +291,13 @@ const sendMessage = async (input, parentMessageId = null) => {
                 title: result.title,
             };
         }
+        const botText = result.details?.adaptiveCards[0]?.body[0]?.text;
         const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
-        if (base64regex.test(result.response) && activePresetToUse.value?.options?.useBase64 === true) {
-            messages.value[botMessageIndex].text = Buffer.from(result.response, 'base64').toString();
+        if (base64regex.test(botText) && activePresetToUse.value?.options?.useBase64 === true) {
+            messages.value[botMessageIndex].text = Buffer.from(botText, 'base64').toString();
             messages.value[botMessageIndex].text += '\n🔓';
         } else {
-            messages.value[botMessageIndex].text = result.response;
+            messages.value[botMessageIndex].text = botText;
         }
         messages.value[botMessageIndex].raw = result;
         if (result.details.suggestedResponses) {
