@@ -266,14 +266,14 @@ const sendMessage = async (input, parentMessageId = null) => {
         messages.value[botMessageIndex].parentMessageId = result.parentMessageId;
         let conversationId;
         if (result.jailbreakConversationId) {
-            // Bing jailbreak mode
+        // Bing jailbreak mode
             conversationId = result.jailbreakConversationId;
             conversationData.value = {
                 jailbreakConversationId: result.jailbreakConversationId,
                 parentMessageId: result.messageId,
             };
         } else if (result.conversationSignature) {
-            // Bing
+        // Bing
             conversationId = result.conversationId;
             conversationData.value = {
                 conversationId: result.conversationId,
@@ -283,7 +283,7 @@ const sendMessage = async (input, parentMessageId = null) => {
                 parentMessageId: null,
             };
         } else {
-            // other clients
+        // other clients
             conversationId = result.conversationId;
             conversationData.value = {
                 conversationId: result.conversationId,
@@ -291,13 +291,17 @@ const sendMessage = async (input, parentMessageId = null) => {
                 title: result.title,
             };
         }
-        const botText = result.details?.adaptiveCards[0]?.body[0]?.text;
-        const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
-        if (base64regex.test(botText) && activePresetToUse.value?.options?.useBase64 === true) {
-            messages.value[botMessageIndex].text = Buffer.from(botText, 'base64').toString();
-            messages.value[botMessageIndex].text += '\n🔓';
+        const adaptiveText = result.details.adaptiveCards?.[0]?.body?.[0]?.text?.trim();
+        if (adaptiveText) {
+            const base64regex = /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+            if (base64regex.test(adaptiveText) && activePresetToUse.value?.options?.useBase64 === true) {
+                messages.value[botMessageIndex].text = Buffer.from(adaptiveText, 'base64').toString();
+                messages.value[botMessageIndex].text += '\n🔓';
+            } else {
+                messages.value[botMessageIndex].text = adaptiveText;
+            }
         } else {
-            messages.value[botMessageIndex].text = botText;
+            messages.value[botMessageIndex].text = result.response;
         }
         messages.value[botMessageIndex].raw = result;
         if (result.details.suggestedResponses) {
