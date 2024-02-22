@@ -194,6 +194,10 @@ const availableOptions = {
                     value: 'copilot',
                 },
                 {
+                    label: 'Sydney',
+                    value: 'sydney',
+                },
+                {
                     label: 'Designer',
                     value: 'designer',
                 },
