@@ -217,21 +217,22 @@ const sendMessage = async (input, parentMessageId = null) => {
     const imageURL = undefined;
     const imageBase64 = undefined;
     const data = {
+        accountType: activePresetToUse.value?.options?.accountType,
+        clientOptions,
         ...conversationData.value,
+        ...imageBase64 && { imageBase64 },
+        ...imageURL && { imageURL },
+        modelVersion: activePresetToUse.value?.options?.modelVersion,
         message: input,
         stream,
         systemMessage: activePresetToUse.value?.options?.systemMessage,
-        modelVersion: activePresetToUse.value?.options?.modelVersion,
+        password: config.public.password,
         persona: activePresetToUse.value?.options?.persona,
+        personalization: activePresetToUse.value?.options?.personalization,
+        plugins: activePresetToUse.value?.options?.plugins,
         showSuggestions: activePresetToUse.value?.options?.showSuggestions || false,
         useBase64: activePresetToUse.value?.options?.useBase64 || false,
         useUserSuffixMessage: activePresetToUse.value?.options?.useUserSuffixMessage,
-        clientOptions,
-        plugins: activePresetToUse.value?.options?.plugins,
-        accountType: activePresetToUse.value?.options?.accountType,
-        password: config.public.password,
-        ...imageBase64 && { imageBase64 },
-        ...imageURL && { imageURL },
     };
 
     if (typeof activePresetToUse.value?.options?.shouldGenerateTitle === 'undefined') {

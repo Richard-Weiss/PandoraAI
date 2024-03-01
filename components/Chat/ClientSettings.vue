@@ -229,6 +229,10 @@ const availableOptions = {
                 },
             ],
         },
+        personalization: {
+            type: 'checkbox',
+            label: 'Personalization',
+        },
         showSuggestions: {
             type: 'checkbox',
             label: 'Show Suggestions',
