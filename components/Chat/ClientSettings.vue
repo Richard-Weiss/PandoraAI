@@ -213,6 +213,14 @@ const availableOptions = {
                     label: 'Fitness Trainer',
                     value: 'fitness',
                 },
+                {
+                    label: 'Personal Shopper',
+                    value: 'shopping',
+                },
+                {
+                    label: 'Shopping Copilot',
+                    value: 'shopping_copilot',
+                },
             ],
         },
         accountType: {
