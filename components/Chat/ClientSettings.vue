@@ -202,10 +202,6 @@ const availableOptions = {
                     value: 'designer',
                 },
                 {
-                    label: 'Vacation Planner',
-                    value: 'travel',
-                },
-                {
                     label: 'Cooking Assistant',
                     value: 'cooking',
                 },
@@ -214,12 +210,20 @@ const availableOptions = {
                     value: 'fitness',
                 },
                 {
+                    label: 'Mica',
+                    value: 'mica',
+                },
+                {
                     label: 'Personal Shopper',
                     value: 'shopping',
                 },
                 {
                     label: 'Shopping Copilot',
                     value: 'shopping_copilot',
+                },
+                {
+                    label: 'Vacation Planner',
+                    value: 'travel',
                 },
             ],
         },
