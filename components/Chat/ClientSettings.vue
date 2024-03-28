@@ -303,6 +303,10 @@ const availableOptions = {
                     type: 'checkbox',
                     label: 'Shop',
                 },
+                suno: {
+                    type: 'checkbox',
+                    label: 'Suno',
+                },
             },
         },
     },
